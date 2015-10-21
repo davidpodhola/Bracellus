@@ -14,3 +14,7 @@ module Library =
   /// ## Parameters
   ///  - `num` - whatever
   let hello num = 42
+
+  let CreateNewSite () =
+    0
+

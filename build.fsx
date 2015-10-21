@@ -10,6 +10,7 @@ open Fake.ReleaseNotesHelper
 open Fake.UserInputHelper
 open System
 open System.IO
+open System.Diagnostics
 #if MONO
 #else
 #load "packages/SourceLink.Fake/tools/Fake.fsx"
@@ -167,6 +168,44 @@ Target "SourceLink" (fun _ ->
 )
 
 #endif
+
+// --------------------------------------------------------------------------------------
+// Install will run installutil.exe to install the DLL and make it useable from PowerShell
+
+Target "Install" (fun _ ->
+    let startInstallUtil  =
+        let info : ProcessStartInfo = ProcessStartInfo()
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\installutil.exe")
+        info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
+        info.Arguments <- "Bracellus.PowerShell.dll"
+        info.Verb <- "runas"
+        info.UseShellExecute <- true
+
+        printfn "Starting %A in %A with %A arguments" info.FileName info.WorkingDirectory info.Arguments
+
+        let installUtilProcess = Process.Start( info )
+        installUtilProcess   
+    startInstallUtil |> ignore 
+)
+
+// --------------------------------------------------------------------------------------
+// Install will run installutil.exe /u to uninstall the DLL 
+
+Target "Uninstall" (fun _ ->
+    let startInstallUtil  =
+        let info : ProcessStartInfo = ProcessStartInfo()
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\installutil.exe")
+        info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
+        info.Arguments <- "/u Bracellus.PowerShell.dll"
+        info.Verb <- "runas"
+        info.UseShellExecute <- true
+
+        printfn "Starting %A in %A with %A arguments" info.FileName info.WorkingDirectory info.Arguments
+
+        let installUtilProcess = Process.Start( info )
+        installUtilProcess   
+    startInstallUtil |> ignore 
+)
 
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
@@ -345,6 +384,8 @@ Target "All" DoNothing
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "CopyBinaries"
+  ==> "Uninstall"
+  ==> "Install"
   ==> "RunTests"
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"

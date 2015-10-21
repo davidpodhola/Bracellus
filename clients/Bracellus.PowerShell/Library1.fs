@@ -1,15 +1,27 @@
 namespace Bracellus.PowerShell
- open System  
- open System.Management.Automation  
- open System.ComponentModel  
- [<RunInstaller(true)>]  
- type Log4NetSnapIn() =  
+
+open System  
+open System.Management.Automation  
+open System.ComponentModel  
+open Bracellus.Library
+ 
+[<RunInstaller(true)>]  
+type BracellusSnapIn() =  
    inherit PSSnapIn()  
-   override this.Name with get() = "aa"  
-   override this.Vendor with get() = "bb"  
-   override this.Description with get() = "dd"  
- [<Cmdlet(VerbsCommunications.Write, "Hi")>]  
- type WriteHelp() =   
-   inherit Cmdlet()  
-   override this.ProcessRecord() =   
-     base.WriteObject("help");  
+   override this.Name with get() = "Bracellus"  
+   override this.Vendor with get() = "NašeÚkoly.CZ s.r.o."  
+   override this.Description with get() = "Simple Static Blog/Web Generator"  
+
+[<Cmdlet(VerbsCommon.New, "Site")>]  
+type NewSite() =   
+  inherit Cmdlet()  
+
+  [<Parameter>]
+  member val Name : string = "My First Site" with get, set
+
+  [<Parameter>]
+  member val Folder : string = "site" with get, set
+
+  override this.ProcessRecord() =   
+    CreateNewSite() |> ignore
+    base.WriteVerbose( sprintf "Site %A in %A created" this.Name this.Folder )
