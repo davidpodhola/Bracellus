@@ -1,0 +1,23 @@
+type project
+owners
+    David Podhola
+authors 
+    David Podhola
+projectUrl
+    http://github.com/NaseUkolyCZ/Bracellus
+iconUrl
+    https://raw.githubusercontent.com/NaseUkolyCZ/Bracellus/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/NaseUkolyCZ/Bracellus/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    generator
+summary
+    Static Blog/Web Generator in F#
+description
+    Static Blog/Web Generator
+
+
