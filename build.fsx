@@ -175,7 +175,7 @@ Target "SourceLink" (fun _ ->
 Target "Install" (fun _ ->
     let startInstallUtil  =
         let info : ProcessStartInfo = ProcessStartInfo()
-        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\installutil.exe")
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.net\Framework64\v4.0.30319\installutil.exe")
         info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
         info.Arguments <- "Bracellus.PowerShell.dll"
         info.Verb <- "runas"
@@ -194,7 +194,7 @@ Target "Install" (fun _ ->
 Target "Uninstall" (fun _ ->
     let startInstallUtil  =
         let info : ProcessStartInfo = ProcessStartInfo()
-        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.NET\Framework\v4.0.30319\installutil.exe")
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.net\Framework64\v4.0.30319\installutil.exe")
         info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
         info.Arguments <- "/u Bracellus.PowerShell.dll"
         info.Verb <- "runas"
