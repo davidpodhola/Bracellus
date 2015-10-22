@@ -73,11 +73,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
-  <Target Name="BeforeBuild">
-    <Message Text="$(TargetFrameworkIdentifier)" Importance="high" />
-  </Target>
-  
   <Import Project="..\..\.paket\paket.targets" />
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0')">

@@ -1,5 +1,7 @@
 namespace Bracellus
 
+open FSharp.Markdown
+
 /// Documentation for my library
 ///
 /// ## Example
@@ -18,3 +20,5 @@ module Library =
   let CreateNewSite () =
     0
 
+  let TransformRaw markdown =
+    Markdown.TransformHtml(markdown)
