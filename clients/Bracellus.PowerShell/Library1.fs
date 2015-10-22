@@ -38,5 +38,5 @@ type ConvertFromMarkdown() =
   member val Markdown : string = null with get, set
 
   override this.ProcessRecord() =   
-    this.WriteObject( TransformRaw this.Markdown )
+    this.WriteObject( Convert this.Markdown )
 

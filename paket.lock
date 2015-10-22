@@ -15,6 +15,8 @@ NUGET
       Expression.Blend.Sdk (>= 1.0.2) - framework: >= net45
     Microsoft.Bcl (1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
+    Microsoft.Bcl.Async (1.0.168)
+      Microsoft.Bcl (>= 1.1.8)
     Microsoft.Bcl.Build (1.0.21) - import_targets: false
     Microsoft.Net.Http (2.2.29)
       Microsoft.Bcl (>= 1.1.10)
@@ -24,6 +26,9 @@ NUGET
     NUnit.Runners (2.6.4)
     Octokit (0.16.0)
       Microsoft.Net.Http
+    PCLStorage (1.0.2)
+      Microsoft.Bcl (>= 1.1.6)
+      Microsoft.Bcl.Async (>= 1.0.165)
     SourceLink.Fake (1.1.0)
     Suave (0.32.1)
       FSharp.Core (>= 3.1.2.5)

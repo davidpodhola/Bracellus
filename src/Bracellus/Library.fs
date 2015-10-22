@@ -1,6 +1,7 @@
 namespace Bracellus
 
 open FSharp.Markdown
+open PCLStorage
 
 /// Documentation for my library
 ///
@@ -20,5 +21,13 @@ module Library =
   let CreateNewSite () =
     0
 
-  let TransformRaw markdown =
+  let Convert markdown =
     Markdown.TransformHtml(markdown)
+
+  let ConvertAndProcess markdown processor : string =
+    processor (Convert markdown)
+
+  let ConvertFile file processor =
+    let file = FileSystem.Current.GetFileFromPathAsync(file).Result
+    let fileContent = file.ReadAllTextAsync().Result
+    ConvertAndProcess fileContent processor
