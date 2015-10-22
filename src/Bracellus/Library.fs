@@ -27,7 +27,9 @@ module Library =
   let ConvertAndProcess markdown processor : string =
     processor (Convert markdown)
 
-  let ConvertFile file processor =
-    let file = FileSystem.Current.GetFileFromPathAsync(file).Result
-    let fileContent = file.ReadAllTextAsync().Result
-    ConvertAndProcess fileContent processor
+  let ConvertFile (fileSystem : IFileSystem) file processor =
+    async {
+        let! file = fileSystem.GetFileFromPathAsync(file) |> Async.AwaitTask
+        let! fileContent = file.ReadAllTextAsync() |> Async.AwaitTask
+        return ConvertAndProcess fileContent processor
+    }
