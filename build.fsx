@@ -396,7 +396,7 @@ Target "All" DoNothing
   ==> "Uninstall"
   ==> "Install"
   ==> "RunTests"
-  ==> "GenerateReferenceDocs"
+//  ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
   ==> "All"
   =?> ("ReleaseDocs",isLocalBuild)
@@ -411,7 +411,7 @@ Target "All" DoNothing
 
 "CleanDocs"
   ==> "GenerateHelp"
-  ==> "GenerateReferenceDocs"
+//  ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
 
 "CleanDocs"

@@ -9,7 +9,6 @@ open PCLStorage
 [<Test>]
 let ``hello returns 42`` () =
   let result = Library.hello 42
-  printfn "%i" result
   Assert.AreEqual(42,result)
 
 let doNothing more=
@@ -17,7 +16,5 @@ let doNothing more=
 
 [<Test>]
 let ``convert file sample1.md`` () =
-  printfn "%s" (System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location))
   let result = Library.ConvertFile (FileSystem.Current) @"..\..\..\..\sample1.md" doNothing |> Async.RunSynchronously
-  printfn "%s" result
   Assert.AreEqual("<h1>F# Hello world</h1>\r\n",result)
