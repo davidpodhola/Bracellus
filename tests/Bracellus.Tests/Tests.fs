@@ -4,6 +4,8 @@ open Bracellus
 open NUnit.Framework
 open PCLStorage
 
+// note these are running in the .\tests\Bracellus.Tests\bin\Release folder
+
 [<Test>]
 let ``hello returns 42`` () =
   let result = Library.hello 42
@@ -15,6 +17,7 @@ let doNothing more=
 
 [<Test>]
 let ``convert file sample1.md`` () =
-  let result = Library.ConvertFile (FileSystem.Current) @"..\..\sample1.md" doNothing |> Async.RunSynchronously
+  printfn "%s" (System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location))
+  let result = Library.ConvertFile (FileSystem.Current) @"..\..\..\..\sample1.md" doNothing //|> Async.RunSynchronously
   printfn "%s" result
-  Assert.AreEqual("# F# Hello world",result)
+  Assert.AreEqual("<h1>F# Hello world</h1>\r\n",result)

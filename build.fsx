@@ -62,6 +62,12 @@ let gitName = "Bracellus"
 // The url for the raw files hosted
 let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/NaseUkolyCZ"
 
+let runningOnAppveyor =
+  not <| String.IsNullOrEmpty(Environment.GetEnvironmentVariable("CI"))
+let runningOnTravis =
+  not <| String.IsNullOrEmpty(Environment.GetEnvironmentVariable("TRAVIS"))
+let inCI = runningOnAppveyor || runningOnTravis
+
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
@@ -185,7 +191,8 @@ Target "Install" (fun _ ->
 
         let installUtilProcess = Process.Start( info )
         installUtilProcess   
-    startInstallUtil |> ignore 
+    if not(inCI) then
+        startInstallUtil |> ignore 
 )
 
 // --------------------------------------------------------------------------------------
@@ -204,7 +211,9 @@ Target "Uninstall" (fun _ ->
 
         let installUtilProcess = Process.Start( info )
         installUtilProcess   
-    startInstallUtil |> ignore 
+
+    if not(inCI) then
+        startInstallUtil |> ignore 
 )
 
 // --------------------------------------------------------------------------------------
