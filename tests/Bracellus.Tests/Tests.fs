@@ -4,15 +4,24 @@ open Bracellus
 open NUnit.Framework
 open Bracellus.Domain
 open Serilog
+open PCLStorage
 
 Log.Logger <- LoggerConfiguration()
     .Destructure.FSharpTypes()
     .WriteTo.Console()
     .CreateLogger()
 Log.Information( "Tests started" )
+// note these are running in the .\tests\Bracellus.Tests\bin\Release folder
 
 [<Test>]
-let ``hello returns "Hello "`` () =
-  let result = Library.hello {FirstName="John";LastName="Rambo"}
-  printfn "%s" result
-  Assert.AreEqual("Hello John Rambo",result)
+let ``hello returns 42`` () =
+  let result = Library.hello 42
+  Assert.AreEqual(42,result)
+
+let doNothing more=
+    more
+
+[<Test>]
+let ``convert file sample1.md`` () =
+  let result = Library.ConvertFile (FileSystem.Current) @"..\..\..\..\sample1.md" doNothing |> Async.RunSynchronously
+  Assert.AreEqual("<h1>F# Hello world</h1>\r\n",result)

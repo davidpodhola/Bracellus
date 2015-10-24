@@ -13,13 +13,13 @@ let referenceBinaries = []
 // Web site location for the generated documentation
 let website = "/Bracellus"
 
-let githubLink = "http://github.com/Update GitHome in build.fsx/Bracellus"
+let githubLink = "http://github.com/NaseUkolyCZ/Bracellus"
 
 // Specify more information about your project
 let info =
   [ "project-name", "Bracellus"
-    "project-author", "Update Author in build.fsx"
-    "project-summary", "Project has no summmary; update build.fsx"
+    "project-author", "David Podhola"
+    "project-summary", "Static Blog/Web Generator in F#"
     "project-github", githubLink
     "project-nuget", "http://nuget.org/packages/Bracellus" ]
 

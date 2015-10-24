@@ -60,6 +60,9 @@
     <ProjectReference Include="..\..\src\Bracellus\Bracellus.fsproj">
       <Name>Bracellus</Name>
       <Project>{6ff19d7a-0f4f-4bfd-8dda-a7afc93c7ecd}</Project>
+    <ProjectReference Include="..\..\src\Bracellus\Bracellus.fsproj">
+      <Name>Bracellus</Name>
+      <Project>{7109735c-a6db-412f-ac9c-a085b0d0fddc}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

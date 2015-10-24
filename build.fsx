@@ -10,6 +10,7 @@ open Fake.ReleaseNotesHelper
 open Fake.UserInputHelper
 open System
 open System.IO
+open System.Diagnostics
 #if MONO
 #else
 #load "packages/SourceLink.Fake/tools/Fake.fsx"
@@ -32,17 +33,17 @@ let project = "Bracellus"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "Project has no summmary; update build.fsx"
+let summary = "Static Blog/Web Generator in F#"
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "Project has no description; update build.fsx"
+let description = "Static Blog/Web Generator"
 
 // List of author names (for NuGet package)
-let authors = [ "Update Author in build.fsx" ]
+let authors = [ "David Podhola" ]
 
 // Tags for your project (for NuGet package)
-let tags = ""
+let tags = "generator"
 
 // File system information 
 let solutionFile  = "Bracellus.sln"
@@ -52,14 +53,20 @@ let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
-let gitOwner = "Update GitHome in build.fsx" 
+let gitOwner = "NaseUkolyCZ" 
 let gitHome = "https://github.com/" + gitOwner
 
 // The name of the project on GitHub
 let gitName = "Bracellus"
 
 // The url for the raw files hosted
-let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/Update GitHome in build.fsx"
+let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/NaseUkolyCZ"
+
+let runningOnAppveyor =
+  not <| String.IsNullOrEmpty(Environment.GetEnvironmentVariable("CI"))
+let runningOnTravis =
+  not <| String.IsNullOrEmpty(Environment.GetEnvironmentVariable("TRAVIS"))
+let inCI = runningOnAppveyor || runningOnTravis
 
 // --------------------------------------------------------------------------------------
 // END TODO: The rest of the file includes standard build steps
@@ -167,6 +174,47 @@ Target "SourceLink" (fun _ ->
 )
 
 #endif
+
+// --------------------------------------------------------------------------------------
+// Install will run installutil.exe to install the DLL and make it useable from PowerShell
+
+Target "Install" (fun _ ->
+    let startInstallUtil  =
+        let info : ProcessStartInfo = ProcessStartInfo()
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.net\Framework64\v4.0.30319\installutil.exe")
+        info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
+        info.Arguments <- "Bracellus.PowerShell.dll"
+        info.Verb <- "runas"
+        info.UseShellExecute <- true
+
+        printfn "Starting %A in %A with %A arguments" info.FileName info.WorkingDirectory info.Arguments
+
+        let installUtilProcess = Process.Start( info )
+        installUtilProcess   
+    if not(inCI) then
+        startInstallUtil |> ignore 
+)
+
+// --------------------------------------------------------------------------------------
+// Install will run installutil.exe /u to uninstall the DLL 
+
+Target "Uninstall" (fun _ ->
+    let startInstallUtil  =
+        let info : ProcessStartInfo = ProcessStartInfo()
+        info.FileName <- Environment.ExpandEnvironmentVariables(@"C:\Windows\Microsoft.net\Framework64\v4.0.30319\installutil.exe")
+        info.WorkingDirectory <- @"dist\Bracellus.PowerShell"
+        info.Arguments <- "/u Bracellus.PowerShell.dll"
+        info.Verb <- "runas"
+        info.UseShellExecute <- true
+
+        printfn "Starting %A in %A with %A arguments" info.FileName info.WorkingDirectory info.Arguments
+
+        let installUtilProcess = Process.Start( info )
+        installUtilProcess   
+
+    if not(inCI) then
+        startInstallUtil |> ignore 
+)
 
 // --------------------------------------------------------------------------------------
 // Build a NuGet package
@@ -345,8 +393,10 @@ Target "All" DoNothing
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "CopyBinaries"
+  ==> "Uninstall"
+  ==> "Install"
   ==> "RunTests"
-  ==> "GenerateReferenceDocs"
+//  ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
   ==> "All"
   =?> ("ReleaseDocs",isLocalBuild)
@@ -361,7 +411,7 @@ Target "All" DoNothing
 
 "CleanDocs"
   ==> "GenerateHelp"
-  ==> "GenerateReferenceDocs"
+//  ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
 
 "CleanDocs"
