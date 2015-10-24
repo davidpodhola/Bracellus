@@ -13,4 +13,4 @@ type Grain1() =
     interface IHello with
 
         override this.SayHello(person:Person) =
-            Task.FromResult<string>( Library.hello person )
+            Task.FromResult<string>( "Hello world!" )
