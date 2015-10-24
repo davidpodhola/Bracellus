@@ -3,7 +3,7 @@ using System.Reflection;
 
 [assembly: AssemblyTitleAttribute("Bracellus.Interfaces")]
 [assembly: AssemblyProductAttribute("Bracellus")]
-[assembly: AssemblyDescriptionAttribute("Project has no summmary; update build.fsx")]
+[assembly: AssemblyDescriptionAttribute("Static Blog/Web Generator in F#")]
 [assembly: AssemblyVersionAttribute("1.0")]
 [assembly: AssemblyFileVersionAttribute("1.0")]
 namespace System {
