@@ -2,8 +2,15 @@ module Bracellus.Tests
 
 open Bracellus
 open NUnit.Framework
+open Bracellus.Domain
+open Serilog
 open PCLStorage
 
+Log.Logger <- LoggerConfiguration()
+    .Destructure.FSharpTypes()
+    .WriteTo.Console()
+    .CreateLogger()
+Log.Information( "Tests started" )
 // note these are running in the .\tests\Bracellus.Tests\bin\Release folder
 
 [<Test>]

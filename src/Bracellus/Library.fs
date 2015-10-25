@@ -1,5 +1,7 @@
 namespace Bracellus
 
+open Bracellus.Domain
+open Serilog
 open FSharp.Markdown
 open PCLStorage
 
@@ -12,7 +14,9 @@ open PCLStorage
 ///
 module Library = 
   
-  /// Returns 42
+  Log.Information( "Library Bracellus loaded" )
+
+  /// Returns Hello firstName lastName
   ///
   /// ## Parameters
   ///  - `num` - whatever

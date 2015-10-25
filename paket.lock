@@ -1,6 +1,8 @@
 NUGET
   remote: https://nuget.org/api/v2
   specs:
+    Destructurama.FSharp (1.0.14)
+      Serilog (>= 1.4.204)
     Expression.Blend.Sdk (1.0.2)
     FAKE (4.7.2)
     FSharp.Compiler.Service (1.4.0.6)
@@ -21,6 +23,11 @@ NUGET
     Microsoft.Net.Http (2.2.29)
       Microsoft.Bcl (>= 1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
+    Microsoft.Orleans.Core (1.0.10)
+    Microsoft.Orleans.Templates.Grains (1.0.10)
+      Microsoft.Orleans.Core (>= 1.0.10)
+    Microsoft.Orleans.Templates.Interfaces (1.0.10)
+      Microsoft.Orleans.Core (>= 1.0.10)
     ModernUI.WPF (1.0.6)
     NUnit (2.6.4)
     NUnit.Runners (2.6.4)
@@ -29,6 +36,7 @@ NUGET
     PCLStorage (1.0.2)
       Microsoft.Bcl (>= 1.1.6)
       Microsoft.Bcl.Async (>= 1.0.165)
+    Serilog (1.5.12)
     SourceLink.Fake (1.1.0)
     Suave (0.32.1)
       FSharp.Core (>= 3.1.2.5)
